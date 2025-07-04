@@ -3,10 +3,177 @@ import { Item, GildedRose } from '../app/gilded-rose';
 
 describe('Gilded Rose', function () {
 
-    it('should foo', function() {
-        const gildedRose = new GildedRose([ new Item('foo', 0, 0) ]);
+    it('check name', function() {
+        const gildedRose = new GildedRose([ new Item('foo', 0, 0), new Item('Backstage passes to a TAFKAL80ETC concert', 0, 0) ]);
         const items = gildedRose.updateQuality();
-        expect(items[0].name).to.equal('fixme');
+        expect(items[0].name).to.equal('foo');
+        expect(items[1].name).to.equal('Backstage passes to a TAFKAL80ETC concert');
+
+    });
+
+    it('check negative', function() {
+        const gildedRose = new GildedRose([new Item('foo', 40, 30) ]);
+
+        for (let day = 0; day < 10; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].sellIn).to.equal(29);
+    });
+
+    it('check negative sellIn', function() {
+        const gildedRose = new GildedRose([new Item('foo', 5, 30) ]);
+
+        for (let day = 0; day < 10; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].sellIn).to.equal(-6);
+    });
+
+    it('quality decrease for normal items', function() {
+        const gildedRose = new GildedRose([new Item('foo', 20, 30) ]);
+
+        for (let day = 0; day < 10; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(19);
+    });
+
+    it('quality decrease for normal items after sell by date', function() {
+        const gildedRose = new GildedRose([new Item('foo', 5, 30) ]);
+
+        for (let day = 0; day < 10; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(13);
+    });
+
+    it('quality always positive', function() {
+        const gildedRose = new GildedRose([new Item('foo', 3, 1) ]);
+
+        for (let day = 0; day < 10; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(0);
+    });
+
+    it('aged brie quality', function() {
+        const gildedRose = new GildedRose([new Item('Aged Brie', 15, 20) ]);
+
+        for (let day = 0; day < 10; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(31);
+    });
+
+    it('aged brie quality limit', function() {
+        const gildedRose = new GildedRose([new Item('Aged Brie', 15, 40) ]);
+
+        for (let day = 0; day < 20; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(50);
+    });
+
+    it('sulfuras quality', function() {
+        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 15, 40) ]);
+
+        for (let day = 0; day < 20; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(40);
+    });
+
+    it('sulfuras quality over 50', function() {
+        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 15, 72) ]);
+
+        for (let day = 0; day < 20; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(72);
+    });
+
+    it('sulfuras sellIn', function() {
+        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 15, 40) ]);
+
+        for (let day = 0; day < 3; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].sellIn).to.equal(15);
+    });
+
+    it('backstage passes quality', function() {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 20, 10) ]);
+
+        for (let day = 0; day < 5; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(16);
+    });
+
+    it('backstage passes quality - 10 days or less', function() {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 17, 10) ]);
+
+        for (let day = 0; day < 10; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(25);
+    });
+
+    it('backstage passes quality - 5 days or less', function() {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 17, 10) ]);
+
+        for (let day = 0; day < 14; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(36);
+    });
+
+    it('backstage passes quality - after', function() {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 9, 10) ]);
+
+        for (let day = 0; day < 14; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(0);
+    });
+
+    it('backstage passes quality limit', function() {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 17, 30) ]);
+
+        for (let day = 0; day < 14; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(50);
     });
 
 });
