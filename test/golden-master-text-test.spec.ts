@@ -112,3 +112,24 @@ describe('Gilded Rose', function () {
 
 });
 
+describe('Gilded Rose', function () {
+
+    it('Sulfuras - check quality after 10 days', function() {
+        const sellIn = 2;
+        const quality = 80;
+        const daysPassed = 10;
+
+        const gildedRose = new GildedRose([ new Item('Sulfuras, Hand of Ragnaros', sellIn, quality) ]);
+
+        for (let day = 1; day < daysPassed; day++) {
+            gildedRose.updateQuality();
+        }
+
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].name).to.equal('Sulfuras, Hand of Ragnaros');
+        expect(items[0].sellIn).to.equal(sellIn);
+        expect(items[0].quality).to.equal(80);
+    });
+
+});
