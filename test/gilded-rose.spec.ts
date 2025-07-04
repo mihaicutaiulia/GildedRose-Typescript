@@ -66,4 +66,26 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(0);
     });
 
+    it('aged brie quality', function() {
+        const gildedRose = new GildedRose([new Item('Aged Brie', 15, 20) ]);
+
+        for (let day = 0; day < 10; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(31);
+    });
+
+    it('aged brie quality limit', function() {
+        const gildedRose = new GildedRose([new Item('Aged Brie', 15, 40) ]);
+
+        for (let day = 0; day < 20; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(50);
+    });
+
 });
