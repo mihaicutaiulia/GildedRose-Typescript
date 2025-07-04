@@ -176,4 +176,48 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(50);
     });
 
+    it('conjured mana cake quality', function() {
+        const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 17, 30) ]);
+
+        for (let day = 0; day < 4; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(20);
+    });
+
+    it('conjured mana cake quality - after', function() {
+        const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 2, 30) ]);
+
+        for (let day = 0; day < 4; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(14);
+    });
+
+    it('conjured mana cake quality limit', function() {
+        const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 2, 30) ]);
+
+        for (let day = 0; day < 15; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(0);
+    });
+
+    it('conjured mana cake quality - exactly 0', function() {
+        const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 5, 30) ]);
+
+        for (let day = 0; day < 9; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(0);
+    });
+
 });
