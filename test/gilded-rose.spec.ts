@@ -88,4 +88,37 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(50);
     });
 
+    it('sulfuras quality', function() {
+        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 15, 40) ]);
+
+        for (let day = 0; day < 20; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(40);
+    });
+
+    it('sulfuras quality over 50', function() {
+        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 15, 72) ]);
+
+        for (let day = 0; day < 20; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].quality).to.equal(72);
+    });
+
+    it('sulfuras sellIn', function() {
+        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 15, 40) ]);
+
+        for (let day = 0; day < 3; day++) {
+            gildedRose.updateQuality();
+        }
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].sellIn).to.equal(15);
+    });
+
 });
