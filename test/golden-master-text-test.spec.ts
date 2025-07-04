@@ -67,3 +67,48 @@ describe('Gilded Rose', function () {
     });
 
 });
+
+describe('Gilded Rose', function () {
+
+    it('Aged Brie - check quality after 10 days', function() {
+        const sellIn = 10;
+        const quality = 30;
+        const daysPassed = 10;
+
+        const gildedRose = new GildedRose([ new Item('Aged Brie', sellIn, quality) ]);
+
+        for (let day = 1; day < daysPassed; day++) {
+            gildedRose.updateQuality();
+        }
+
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].name).to.equal('Aged Brie');
+        expect(items[0].sellIn).to.equal(sellIn - daysPassed);
+        expect(items[0].quality).to.equal(quality + daysPassed);
+    });
+
+});
+
+describe('Gilded Rose', function () {
+
+    it('Aged Brie - check quality limit', function() {
+        const sellIn = 10;
+        const quality = 30;
+        const daysPassed = 30;
+
+        const gildedRose = new GildedRose([ new Item('Aged Brie', sellIn, quality) ]);
+
+        for (let day = 1; day < daysPassed; day++) {
+            gildedRose.updateQuality();
+        }
+
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].name).to.equal('Aged Brie');
+        expect(items[0].sellIn).to.equal(sellIn - daysPassed);
+        expect(items[0].quality).to.equal(Math.min(quality + daysPassed, 50));
+    });
+
+});
+
