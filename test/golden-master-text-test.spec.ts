@@ -21,10 +21,6 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(Math.max(0, quality - daysPassed));
     });
 
-});
-
-describe('Gilded Rose', function () {
-
     it('Normal item - check quality limit', function() {
         const sellIn = 10;
         const quality = 2;
@@ -42,10 +38,6 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(sellIn - daysPassed);
         expect(items[0].quality).to.equal(0);
     });
-
-});
-
-describe('Gilded Rose', function () {
 
     it('Normal item - check quality after sell by date', function() {
         // after sell by date, the quality degrades twice as fast
@@ -66,10 +58,6 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(23);
     });
 
-});
-
-describe('Gilded Rose', function () {
-
     it('Aged Brie - check quality after 10 days', function() {
         const sellIn = 10;
         const quality = 30;
@@ -87,10 +75,6 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(sellIn - daysPassed);
         expect(items[0].quality).to.equal(quality + daysPassed);
     });
-
-});
-
-describe('Gilded Rose', function () {
 
     it('Aged Brie - check quality limit', function() {
         const sellIn = 10;
@@ -110,10 +94,6 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(Math.min(quality + daysPassed, 50));
     });
 
-});
-
-describe('Gilded Rose', function () {
-
     it('Sulfuras - check quality after 10 days', function() {
         const sellIn = 2;
         const quality = 80;
@@ -131,10 +111,6 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(sellIn);
         expect(items[0].quality).to.equal(80);
     });
-
-});
-
-describe('Gilded Rose', function () {
 
     it('Backstage passes - check quality 2 weeks before the sell by date', function() {
         const sellIn = 14;
@@ -154,10 +130,6 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(22);
     });
 
-});
-
-describe('Gilded Rose', function () {
-
     it('Backstage passes - check quality one week before the sell by date', function() {
         const sellIn = 14;
         const quality = 20;
@@ -175,10 +147,6 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(sellIn - daysPassed);
         expect(items[0].quality).to.equal(30);
     });
-
-});
-
-describe('Gilded Rose', function () {
 
     it('Backstage passes - check quality 3 days before the sell by date', function() {
         const sellIn = 14;
@@ -198,10 +166,6 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(40);
     });
 
-});
-
-describe('Gilded Rose', function () {
-
     it('Backstage passes - check quality one day after the sell by date', function() {
         const sellIn = 14;
         const quality = 20;
@@ -219,5 +183,4 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(sellIn - daysPassed);
         expect(items[0].quality).to.equal(0);
     });
-
 });
