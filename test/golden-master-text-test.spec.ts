@@ -133,3 +133,91 @@ describe('Gilded Rose', function () {
     });
 
 });
+
+describe('Gilded Rose', function () {
+
+    it('Backstage passes - check quality 2 weeks before the sell by date', function() {
+        const sellIn = 14;
+        const quality = 20;
+        const daysPassed = 2;
+
+        const gildedRose = new GildedRose([ new Item('Backstage passes to a TAFKAL80ETC concert', sellIn, quality) ]);
+
+        for (let day = 1; day < daysPassed; day++) {
+            gildedRose.updateQuality();
+        }
+
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].name).to.equal('Backstage passes to a TAFKAL80ETC concert');
+        expect(items[0].sellIn).to.equal(sellIn - daysPassed);
+        expect(items[0].quality).to.equal(22);
+    });
+
+});
+
+describe('Gilded Rose', function () {
+
+    it('Backstage passes - check quality one week before the sell by date', function() {
+        const sellIn = 14;
+        const quality = 20;
+        const daysPassed = 7;
+
+        const gildedRose = new GildedRose([ new Item('Backstage passes to a TAFKAL80ETC concert', sellIn, quality) ]);
+
+        for (let day = 1; day < daysPassed; day++) {
+            gildedRose.updateQuality();
+        }
+
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].name).to.equal('Backstage passes to a TAFKAL80ETC concert');
+        expect(items[0].sellIn).to.equal(sellIn - daysPassed);
+        expect(items[0].quality).to.equal(30);
+    });
+
+});
+
+describe('Gilded Rose', function () {
+
+    it('Backstage passes - check quality 3 days before the sell by date', function() {
+        const sellIn = 14;
+        const quality = 20;
+        const daysPassed = 11;
+
+        const gildedRose = new GildedRose([ new Item('Backstage passes to a TAFKAL80ETC concert', sellIn, quality) ]);
+
+        for (let day = 1; day < daysPassed; day++) {
+            gildedRose.updateQuality();
+        }
+
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].name).to.equal('Backstage passes to a TAFKAL80ETC concert');
+        expect(items[0].sellIn).to.equal(sellIn - daysPassed);
+        expect(items[0].quality).to.equal(40);
+    });
+
+});
+
+describe('Gilded Rose', function () {
+
+    it('Backstage passes - check quality one day after the sell by date', function() {
+        const sellIn = 14;
+        const quality = 20;
+        const daysPassed = 15;
+
+        const gildedRose = new GildedRose([ new Item('Backstage passes to a TAFKAL80ETC concert', sellIn, quality) ]);
+
+        for (let day = 1; day < daysPassed; day++) {
+            gildedRose.updateQuality();
+        }
+
+        const items = gildedRose.updateQuality();
+
+        expect(items[0].name).to.equal('Backstage passes to a TAFKAL80ETC concert');
+        expect(items[0].sellIn).to.equal(sellIn - daysPassed);
+        expect(items[0].quality).to.equal(0);
+    });
+
+});
